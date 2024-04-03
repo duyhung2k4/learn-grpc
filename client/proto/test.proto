@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "grpc/proto";
+
+message DataReq {
+  string text = 1;
+}
+
+message DataRes {
+  string mess = 1;
+}
+
+service DataService {
+  rpc SendTextOneToOne(DataReq) returns(DataRes) {}
+  rpc SendTextOneToMany(DataReq) returns(stream DataRes) {}
+  rpc SendTextManyToOne(stream DataReq) returns (DataRes) {}
+  rpc SendTextManyToMany(stream DataReq) returns (stream DataRes) {}
+}
